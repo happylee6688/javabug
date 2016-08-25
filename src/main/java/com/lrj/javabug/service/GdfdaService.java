@@ -17,21 +17,21 @@ public interface GdfdaService {
      * @return
      */
     @POST("epout/command/ajax/com.inspur.epcommon.quicklyfactory.cmd.QuicklyQueryCmd/queryQuicklySampleInfo")
-    Call<ResponseBody> getList();
+    Call<ResponseBody> getList(@Body RequestBody body);
 
     /**
      * 检测结果的详细信息
      * @return
      */
     @POST("epout/command/ajax/com.inspur.epcommon.quicklyfactory.cmd.QuicklyQueryCmd/queryQuicklySampleInfoById")
-    Call<ResponseBody> getDetail();
+    Call<ResponseBody> getDetail(@Body RequestBody body);
 
     /**
      * 检测结果的抽检信息
      * @return
      */
     @POST("epout/command/ajax/com.inspur.epcommon.quicklyfactory.cmd.QuicklyQueryCmd/queryReport")
-    Call<ResponseBody> getCheck();
+    Call<ResponseBody> getCheck(@Body RequestBody body);
 
 
 
