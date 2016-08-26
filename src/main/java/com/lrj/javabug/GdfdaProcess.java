@@ -210,6 +210,11 @@ public class GdfdaProcess {
 
 
 
+    /**
+     * 通过一个响应体，执行同步请求，把结果转换成String
+     * @param repo
+     * @return
+     */
     public String getResultFromService(Call<ResponseBody> repo) {
         String result = "";
         try {
@@ -234,6 +239,10 @@ public class GdfdaProcess {
         return  service;
     }
 
+    /**
+     * 设置okhttp拦截器，通过拦截器设置cookie以及content-type等http请求头
+     * @return
+     */
     public OkHttpClient getOKHttpClient() {
         return new OkHttpClient.Builder()
                 .addInterceptor(
