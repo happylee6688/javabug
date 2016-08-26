@@ -40,7 +40,7 @@ public interface GdfdaService {
      * 常用农产品list
      * @return
      */
-    @POST("epout/command/ajax/com.inspur.epcommon.databasefactory.cmd.BasedataProductTypeQueryCmd/queryCommonProduct")
+    @POST("epout/command/ajax/com.inspur.epcommon.quicklyfactory.cmd.QuicklyQueryCmd/queryAllProduct")
     Call<ResponseBody> getFramList(@Body RequestBody body);
 
 

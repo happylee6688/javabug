@@ -130,12 +130,15 @@ public class GdfdaProcess {
 
         JSONObject map = new JSONObject();
         map.put("needTotal", true);
+        map.put("classId", "");
+        map.put("className", "");
+        map.put("anotherName", "");
         map.put("entId", "SYNCPKJMD00001026");
         map.put("start  ", 0);
-        map.put("limit", 100);
+        map.put("limit", 2700);
 
         params.put("map", map);
-        params.put("length", 7);
+        params.put("length", 11);
 
         json.put("params", params);
 
@@ -166,9 +169,13 @@ public class GdfdaProcess {
         Cell cell_1 = headerRow.createCell(0);
         cell_1.setCellValue("中文名");
         Cell cell_2 = headerRow.createCell(1);
-        cell_2.setCellValue("别名");
+        cell_2.setCellValue("产品代码");
         Cell cell_3 = headerRow.createCell(2);
-        cell_3.setCellValue("英文名");
+        cell_3.setCellValue("父id");
+        Cell cell_4 = headerRow.createCell(3);
+        cell_4.setCellValue("别名");
+        Cell cell_5 = headerRow.createCell(4);
+        cell_5.setCellValue("英文名");
 
 
         Row row;
@@ -176,6 +183,8 @@ public class GdfdaProcess {
         for (int i = 0; i < resultArray.size(); i++) {
             JSONObject framInfo = (JSONObject) resultArray.get(i);
             String name = framInfo.getString("NAME");
+            String productCode = framInfo.getString("PRODUCT_CODE");
+            String parentId = framInfo.getString("PARENT_ID");
             String alias = framInfo.getString("ALIAS");
             String engName = framInfo.getString("ENGLISH_NAME");
 
@@ -185,11 +194,16 @@ public class GdfdaProcess {
             Cell c1 = row.createCell(0);
             c1.setCellValue(name);
             Cell c2 = row.createCell(1);
-            c2.setCellValue(alias);
+            c2.setCellValue(productCode);
             Cell c3 = row.createCell(2);
-            c3.setCellValue(engName);
+            c3.setCellValue(parentId);
+            Cell c4 = row.createCell(3);
+            c4.setCellValue(alias);
+            Cell c5 = row.createCell(4);
+            c5.setCellValue(engName);
 
-
+            int rowNum = i + 1;
+            System.out.println("成功保存了第" + rowNum +  "行; NAME" + name + "; ALIAS: " + alias + "; ENGLISH_NAME: " + engName);
         }
 
         String file = "e:\\framList.xls";
@@ -254,7 +268,7 @@ public class GdfdaProcess {
                                 // Request customization: add request headers
                                 Request.Builder requestBuilder = original.newBuilder()
                                         //现在pc端登录，通过开发者工具获取头部信息
-                                        .header("Cookie", "route=aed04f74dba81b5b1d110c60bf492663; JSESSIONID=33C67B01CCF48991F87AFBB62DB05338; route=1dfa234d8008b3fe22689b12abe1322b; sso_token=5508D91BB888C1CED406B811CD2414B7")
+                                        .header("Cookie", "route=59c44ad01b5e56b1b368e0237680280d; JSESSIONID=8B3E3696A157A811E2D35489ED14AC91; route=056af1c3772b90973af95d80bfa9d073; sso_token=ECA3B0179ACA68F82F10114BB8F3BFFC")
                                         .header("Content-Type", "application/json")
                                         .method(original.method(), original.body());
 
