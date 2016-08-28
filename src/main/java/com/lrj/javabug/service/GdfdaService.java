@@ -34,7 +34,13 @@ public interface GdfdaService {
     Call<ResponseBody> getCheck(@Body RequestBody body);
 
 
-
+    /**
+     * 省市县代码的查询
+     * @param body
+     * @return
+     */
+    @POST("epout/command/ajax/com.inspur.epcommon.pubCant.DictPubCantCmd/queryCantBySupercode")
+    Call<ResponseBody> getAddress(@Body RequestBody body);
 
     /**
      * 常用农产品list
