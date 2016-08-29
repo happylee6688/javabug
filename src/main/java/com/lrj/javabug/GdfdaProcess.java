@@ -3,13 +3,17 @@ package com.lrj.javabug;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.lrj.javabug.service.GdfdaService;
+
 import okhttp3.*;
 import okhttp3.Response;
+
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.util.StringUtil;
+
 import retrofit2.*;
 import retrofit2.Call;
 
@@ -410,6 +414,8 @@ public class GdfdaProcess {
         cell_4.setCellValue("别名");
         Cell cell_5 = headerRow.createCell(4);
         cell_5.setCellValue("英文名");
+        Cell cell_6 = headerRow.createCell(5);
+        cell_6.setCellValue("对应GB/t7635.1代码");
 
 
         Row row;
@@ -421,6 +427,11 @@ public class GdfdaProcess {
             String parentId = framInfo.getString("PARENT_ID");
             String alias = framInfo.getString("ALIAS");
             String engName = framInfo.getString("ENGLISH_NAME");
+            if(engName != null && !engName.equals("")) {
+            	engName = engName.replace("?", " ");
+            }
+            
+            String gbCode = framInfo.getString("GB_CODE");
 
             //System.out.println("Name: " + name + "; ALIAS: " + alias + "; ENGLISH_NAME: " + engName);
 
@@ -435,6 +446,9 @@ public class GdfdaProcess {
             c4.setCellValue(alias);
             Cell c5 = row.createCell(4);
             c5.setCellValue(engName);
+            Cell c6 = row.createCell(5);
+            c6.setCellValue(gbCode);
+
 
             int rowNum = i + 1;
             System.out.println("成功保存了第" + rowNum +  "行; NAME" + name + "; ALIAS: " + alias + "; ENGLISH_NAME: " + engName);
@@ -502,7 +516,7 @@ public class GdfdaProcess {
                                 // Request customization: add request headers
                                 Request.Builder requestBuilder = original.newBuilder()
                                         //现在pc端登录，通过开发者工具获取头部信息
-                                        .header("Cookie", "route=f6a7ce89c0bfb5356431342ae6b6a981; route=92064b68ffe839f20877e6b9d4944903; JSESSIONID=4B37C11FD6085868F52327B6A5773AEE; route=15d455410c575d87f3a9113772b9f0c1; sso_token=469E2F5539F7919A826EEDE5061A9AAE")
+                                        .header("Cookie", "route=92064b68ffe839f20877e6b9d4944903; JSESSIONID=1C27F734EC0B6C75A2DCE1EDB209603C; route=b8eaa91bc6b530d9da014e8f70eda5e0; sso_token=9D359C2F167A2F274AA2F49DC9D26B66")
                                         .header("Content-Type", "application/json")
                                         .method(original.method(), original.body());
 
@@ -516,7 +530,8 @@ public class GdfdaProcess {
 
     public static void main(String[] args) {
         GdfdaProcess process = new GdfdaProcess();
-        process.process();
+        //process.process();
+        process.processFram();
 
 //        GdfdaService service = process.getService();
 //        JSONArray array = process.getetailInfo("8aa851b856a5dabb0156d18ebea34788", "id", service, 2);
