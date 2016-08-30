@@ -416,6 +416,8 @@ public class GdfdaProcess {
         cell_5.setCellValue("英文名");
         Cell cell_6 = headerRow.createCell(5);
         cell_6.setCellValue("对应GB/t7635.1代码");
+        Cell cell_7 = headerRow.createCell(6);
+        cell_7.setCellValue("说明");
 
 
         Row row;
@@ -432,6 +434,9 @@ public class GdfdaProcess {
             }
             
             String gbCode = framInfo.getString("GB_CODE");
+            String note = framInfo.getString("NOTE");
+            
+            
 
             //System.out.println("Name: " + name + "; ALIAS: " + alias + "; ENGLISH_NAME: " + engName);
 
@@ -448,6 +453,8 @@ public class GdfdaProcess {
             c5.setCellValue(engName);
             Cell c6 = row.createCell(5);
             c6.setCellValue(gbCode);
+            Cell c7 = row.createCell(6);
+            c7.setCellValue(note);
 
 
             int rowNum = i + 1;
